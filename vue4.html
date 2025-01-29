@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <h1> Mi primer VUE</h1>
+  <div id="app">
+    {{ fruits }}
+    <p>Numero de frutas : {{fruits.length}}</p>
+    <ul v-if="fruits.length">
+      <li v-for="fruit in fruits">{{fruit}}</li>
+    </ul>
+    <p v-else>No hay frutas</p>
+  </div>
+  <script>
+    const {createApp, ref}= Vue
+
+    const app= createApp({
+      setup(){
+        const message = ref('hola VUE!')
+        return{
+          fruits: ['platano', 'kiwi','manzana','papaya']
+        }
+      }
+    });
+
+    app.mount('#app')
+  </script>
+  
+</body>
+</html>

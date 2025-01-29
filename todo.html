@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    li.completed{
+      color: red;
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1> To Do</h1>
+  <div id="app">
+    <h1>Cosas que hay que hacer</h1>
+    <p>
+      <input type="text" placeholder="Nueva Tarea" v-model="newTask" @keypress.enter="addTask">
+      <button  @click="addTask">Crear tarea</button>
+    </p>
+    <p> Numero de tareas : {{tasks.length}}
+    </p>
+    <h2>Tareas pendientes : </h2>
+    <h2>Tareas realizadas</h2>
+    <ul>
+      <li v-for="(task, index) in tasks"
+       :key="index"
+       @click="togglecompletedTask(index)"
+       :class="{completed: task.completed ==true}"
+       >{{task.concept}}
+       <button  @click="removeTask(index)">D</button>
+      </li>
+    </ul>
+    
+  </div>
+  <script>
+    const {createApp, ref}= Vue
+
+    const app= createApp({
+      data(){
+        return{
+          tasks: [{concept:'Aprender Vue' , completed : false},
+          {concept:'Aprobar examen Vue', completed : false}],
+          newTask:"",
+          completedTask:[]
+        }
+      },
+      methods: {
+        removeTask(index){
+          this.tasks.splice(index,1)
+          console.log(index);
+          
+        },
+        addTask(){
+          this.tasks.push({concept: this.newTask , completed : false})
+          this.newTask=""
+        },
+        togglecompletedTask(index){
+         
+          this.tasks[index].completed = !this.tasks[index].completed
+        }
+      }
+      ,
+      computed:{
+        fullName(){
+          return this.person.name+" "+this.person.surname
+        }
+      }
+    });
+
+    app.mount('#app')
+  </script>
+  
+</body>
+</html>
